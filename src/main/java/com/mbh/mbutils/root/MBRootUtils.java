@@ -6,7 +6,7 @@ import java.io.IOException;
 /**
  * Created By MBH on 2016-06-09.
  */
-public class MBRoot {
+public class MBRootUtils {
 
     public static boolean sudo(String[] strings) {
         try {

@@ -2,7 +2,7 @@ package com.mbh.mbutils.network;
 
 
 import com.mbh.mbutils.BuildConfig;
-import com.mbh.mbutils.root.MBRoot;
+import com.mbh.mbutils.root.MBRootUtils;
 
 /**
  * Created by mballan on 19.09.2015.
@@ -23,7 +23,7 @@ public class MBRemoteAdb {
                 "stop adbd",
                 "start adbd"
         };
-        return MBRoot.sudo(openAdbCommands);
+        return MBRootUtils.sudo(openAdbCommands);
     }
 
     public static boolean suduCloseADBForNetwork() {
@@ -31,7 +31,7 @@ public class MBRemoteAdb {
                 "stop adbd",
                 "start adbd"
         };
-        return MBRoot.sudo(closeAdbCommands);
+        return MBRootUtils.sudo(closeAdbCommands);
     }
 
 
