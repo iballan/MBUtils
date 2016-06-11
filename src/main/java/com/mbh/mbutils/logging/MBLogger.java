@@ -7,6 +7,7 @@ import com.mbh.mbutils.BuildConfig;
 
 /**
  * Created by MBH on 2016-02-01.
+ * This class created as wrapper around the android Log file
  */
 public class MBLogger {
 

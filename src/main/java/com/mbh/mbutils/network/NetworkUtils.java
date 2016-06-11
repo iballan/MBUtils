@@ -219,10 +219,12 @@ public class NetworkUtils {
         }
         return null;
     }
+
     /**
      * Returns MAC address of the given interface name.
+     *
      * @param interfaceName eth0, wlan0 or NULL=use first interface
-     * @return  mac address or empty string
+     * @return mac address or empty string
      */
     public static String getMACAddress(String interfaceName) {
         try {
@@ -232,14 +234,15 @@ public class NetworkUtils {
                     if (!intf.getName().equalsIgnoreCase(interfaceName)) continue;
                 }
                 byte[] mac = intf.getHardwareAddress();
-                if (mac==null) return "";
+                if (mac == null) return "";
                 StringBuilder buf = new StringBuilder();
-                for (int idx=0; idx<mac.length; idx++)
+                for (int idx = 0; idx < mac.length; idx++)
                     buf.append(String.format("%02X:", mac[idx]));
-                if (buf.length()>0) buf.deleteCharAt(buf.length()-1);
+                if (buf.length() > 0) buf.deleteCharAt(buf.length() - 1);
                 return buf.toString();
             }
-        } catch (Exception ex) { } // for now eat exceptions
+        } catch (Exception ex) {
+        } // for now eat exceptions
         return "";
         /*try {
             // this is so Linux hack
@@ -276,14 +279,13 @@ public class NetworkUtils {
         return "";
     }
 
-    public static String getEth0MACAddress(){
+    public static String getEth0MACAddress() {
         return getMACAddress("eth0");
     }
 
-    public static String getWlanMACAddress(){
+    public static String getWlanMACAddress() {
         return getMACAddress("wlan0");
     }
-
 
 
     public static String getNetmask() {
@@ -310,12 +312,46 @@ public class NetworkUtils {
         }
 
     }
+    public static void OpenEthernetInterface(){
 
+        try {
+
+//            if(isEthOn()){
+//                Runtime.getRuntime().exec("ifconfig eth0 down");
+//
+//            }
+//            else{
+//                Runtime.getRuntime().exec("ifconfig eth0 up");
+//            }
+            Runtime.getRuntime().exec("ifconfig eth0 up");
+
+        } catch (IOException e) {
+            Log.e("OLE","Runtime Error: "+e.getMessage());
+            e.printStackTrace();
+        }
+//        String [] command = new String[]{"ip link set eth0 up"};
+//        Process p;
+//        try {
+//            p = Runtime.getRuntime().exec("su");
+//            DataOutputStream os = new DataOutputStream(p.getOutputStream());
+//            for (String tmpCmd : command) {
+//                os.writeBytes(tmpCmd + " \n ");
+//            }
+//            os.writeBytes("exit \n ");
+//            os.flush();
+//            p.waitFor();
+//        } catch (Exception e1) {
+//            e1.printStackTrace();
+//        }
+    }
     public static abstract class OnChangeCompleted {
         public abstract void onSuccess(String macAddress);
 
         public void onFail(String reason) {
         }
     }
-
+//    public static void OpenWifiInterface(Context context, boolean open) {
+//        WifiManager wifiManager = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
+//        wifiManager.setWifiEnabled(open);
+//    }
 }

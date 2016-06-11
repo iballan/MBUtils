@@ -48,14 +48,28 @@ public class MBDateTimeUtils {
     }
 
     public static void setSystemDate(String t_time, OnDateChangedListener onDateChangedListener) {
+        SysDateChangeResult result = setSystemDate(t_time);
+        if(result == SysDateChangeResult.CHANGED){
+            if (onDateChangedListener != null) {
+                onDateChangedListener.dateChangedSuccessfully();
+            }
+        }else if (result == SysDateChangeResult.SAME){
+            if (onDateChangedListener != null) {
+                onDateChangedListener.tabletDateSameAsKioskDate();
+            }
+        }
+    }
+
+    public enum SysDateChangeResult {CHANGED, NOT_CHANGED, SAME};
+    public static SysDateChangeResult setSystemDate(String t_time){
         try {
             if (t_time.equals("") || t_time.length() < 5) {
-                return;
+                return SysDateChangeResult.NOT_CHANGED;
             }
             String[] separated = t_time.split("-");
 
             if (separated.length < 6) {
-                return;
+                return SysDateChangeResult.NOT_CHANGED;
             }
 
             String t_year = separated[0];
@@ -107,20 +121,18 @@ public class MBDateTimeUtils {
                 os.writeBytes("exit\n");
                 os.flush();
 
-                if (onDateChangedListener != null) {
-                    onDateChangedListener.dateChangedSuccessfully();
-                }
+
                 process.waitFor();
+                return SysDateChangeResult.CHANGED;
             }else {
-                if (onDateChangedListener != null) {
-                    onDateChangedListener.tabletDateSameAsKioskDate();
-                }
+                // no need to change
+                return SysDateChangeResult.SAME;
             }
         } catch (Exception e) {
             e.printStackTrace();
+            return SysDateChangeResult.NOT_CHANGED;
         }
     }
-
 
     public static String diffBetween(Date start, Date end) {
         long diff = end.getTime() - start.getTime();
