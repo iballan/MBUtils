@@ -18,4 +18,8 @@ NetworkUtils (for activating deactivating wifi and eth, changing macaddress, cha
 
 MBFontOverride (for changing the whole app font)
 
-MBRoot ( for excuting command on root
+MBRoot : for excuting command with root permission
+
+MBServer : easily creating server that listen to port and show the packet as string
+
+MBToaster: wrapper around toast messages
