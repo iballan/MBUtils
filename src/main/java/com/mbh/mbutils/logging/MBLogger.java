@@ -113,6 +113,15 @@ public class MBLogger {
             Log.e(TAG, prefix);
     }
 
+    public static String getMethodName(final int depth)
+    {
+        final StackTraceElement[] ste = Thread.currentThread().getStackTrace();
+
+        //System. out.println(ste[ste.length-depth].getClassName()+"#"+ste[ste.length-depth].getMethodName());
+        // return ste[ste.length - depth].getMethodName();  //Wrong, fails for depth = 0
+        return ste[ste.length - 1 - depth].getMethodName(); //Thank you Tom Tresansky
+    }
+
     private void logDe(String message) {
         Log.d(TAG, message);
     }
