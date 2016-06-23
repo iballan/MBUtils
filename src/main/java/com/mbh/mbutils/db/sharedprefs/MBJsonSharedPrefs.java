@@ -19,6 +19,10 @@ public class MBJsonSharedPrefs implements IPreferences {
     public MBJsonSharedPrefs(String filePath){
         this.filePath = filePath;
         try {
+            if(!MBFileUtils.FileExists(filePath)){
+                // this is first time
+                MBFileUtils.CreateFile(filePath, "{}");
+            }
             String json = MBFileUtils.ReadFile(filePath);
             mJSONObject = new JSONObject(json);
         } catch (Exception e) {
