@@ -1,8 +1,11 @@
 package com.mbh.mbutils.ui;
 
+import android.graphics.Bitmap;
+
 import com.google.common.base.Charsets;
 import com.google.common.io.Files;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -66,5 +69,20 @@ public class MBFileUtils {
     public static boolean CreateFolderIfNotExists(String path) {
         File file = new File(path);
         return file.exists() || file.mkdir();
+    }
+
+    public static File SaveBitmapToFile(Bitmap bm, String dir, String name) {
+        File file = null;
+        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+        bm.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
+        try {
+            file = new File(dir, name + ".jpg");
+            file.createNewFile();
+            Files.write(bytes.toByteArray(), file);
+//            OutputStream outputStream = new FileOutputStream(file).write(bytes.toByteArray());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return file;
     }
 }
