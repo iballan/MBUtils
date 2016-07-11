@@ -1,4 +1,4 @@
-package com.mbh.mbutils.ui;
+package com.mbh.mbutils.db;
 
 import android.graphics.Bitmap;
 
@@ -84,5 +84,31 @@ public class MBFileUtils {
             e.printStackTrace();
         }
         return file;
+    }
+
+    public static boolean DeleteFile(String fullFilePath){
+        if(fullFilePath == null || fullFilePath.isEmpty())
+            return false;
+        try {
+            File file = new File(fullFilePath);
+            if(file.isFile() && file.delete())
+                return true;
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    public static boolean DeleteFolder(String folderFullPath){
+        if(folderFullPath == null || folderFullPath.isEmpty())
+            return false;
+        try {
+            File file = new File(folderFullPath);
+            if(file.isDirectory() && file.delete())
+                return true;
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return false;
     }
 }

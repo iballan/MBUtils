@@ -1,7 +1,7 @@
 package com.mbh.mbutils.db.sharedprefs;
 
 import com.mbh.mbutils.thread.MBThreadUtils;
-import com.mbh.mbutils.ui.MBFileUtils;
+import com.mbh.mbutils.db.MBFileUtils;
 
 import org.json.JSONException;
 import org.json.JSONObject;

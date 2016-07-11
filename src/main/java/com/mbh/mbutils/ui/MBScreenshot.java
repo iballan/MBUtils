@@ -3,6 +3,8 @@ package com.mbh.mbutils.ui;
 import android.graphics.Bitmap;
 import android.view.View;
 
+import com.mbh.mbutils.db.MBFileUtils;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.OutputStream;
