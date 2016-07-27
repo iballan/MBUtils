@@ -48,11 +48,7 @@ public class MBExpoBackoffThread {
     }
 
     public boolean isAlive() {
-        if (expoThread != null && expoThread.isAlive() && running) {
-            return true;
-        } else {
-            return false;
-        }
+        return expoThread != null && expoThread.isAlive() && running;
     }
 
     private void initializeThread() {
@@ -85,10 +81,9 @@ public class MBExpoBackoffThread {
                             currentDelay = 0;
                         }
                         if (stopOnError) {
-                            throw exception;
-                        } else {
-                            if (onExpoFailure != null) onExpoFailure.OnExpoFailed(exception);
+                            throw new RuntimeException(exception);
                         }
+                        if (onExpoFailure != null) onExpoFailure.OnExpoFailed(exception);
                     }
                     MBThreadUtils.TryToSleepFor(getNextDelay());
                     if (!running) {
@@ -134,7 +129,7 @@ public class MBExpoBackoffThread {
          *
          * @return true if work went successfully
          */
-        boolean ExpoDoWork();
+        boolean ExpoDoWork() throws Exception;
     }
 
     public static class Builder {
@@ -156,7 +151,7 @@ public class MBExpoBackoffThread {
          * @return builder
          */
         // region builder functions
-        public Builder setMaxRefreshDelay(int milliseconds) {
+        public Builder setMaxDelay(int milliseconds) {
             this.maxRefreshDelay = milliseconds;
             return this;
         }

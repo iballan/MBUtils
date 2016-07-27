@@ -58,12 +58,52 @@ public class MBFileUtils {
         return file;
     }
 
+    public static File CreateFileIfNotExists(String path) {
+        File file = new File(path);
+        try {
+            if (!file.exists()) {
+                String parentFolderPath = path.substring(0, path.lastIndexOf("/"));
+                File parentFolder = new File(parentFolderPath);
+                if (!parentFolder.exists()) {
+                    parentFolder.mkdir();
+                }
+                file.createNewFile();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return file;
+    }
+
     public static String ReadFile(String path) throws IOException {
         return Files.toString(new File(path), Charsets.UTF_8);
     }
 
-    public static void WriteToFile(String content, String path) throws IOException {
+    public static byte[] ReadFileBytes(String path) throws IOException{
+        return Files.toByteArray(new File(path));
+    }
+
+    public static void WriteToFile( String path, String content) throws IOException {
         Files.write(content, new File(path), Charsets.UTF_8);
+    }
+
+    public static void ForceWriteToFile(String path, String content){
+        try{
+            Files.touch(new File(path));
+            WriteToFile(path, content);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    public static void ForceWriteBytesToFile(String path, byte[] content) {
+        try{
+            File file = new File(path);
+            Files.touch(file);
+            Files.write(content, file);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
     }
 
     public static boolean CreateFolderIfNotExists(String path) {

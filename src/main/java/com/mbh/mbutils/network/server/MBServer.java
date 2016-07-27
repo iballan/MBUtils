@@ -14,6 +14,29 @@ import java.util.concurrent.atomic.AtomicBoolean;
  * Created By MBH on 2016-06-11.
  */
 public class MBServer {
+    // region ---------->Example<----------
+    /*
+    mbServer = new MBServer.Builder()
+            .serverPort(8080)
+    .receiveOnDifferentThread(true)
+    .showLogMessages(true)
+    .onPacketReceivedHandler(new MBServer.OnPacketReceived() {
+        @Override
+        public void OnPacketReceived(String packet) {
+        }
+    })
+            .onServerError(new MBServer.OnServerError() {
+        @Override
+        public void OnServerError(Throwable exception) {
+        }
+    })
+            .build();
+    mbServer.start();
+    if(mbServer.isAlive())
+            mbServer.stop();
+     **/
+    // endregion
+
     volatile boolean running = false;
     ServerSocket serverSocket;
     Thread mThread;

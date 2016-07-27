@@ -210,7 +210,7 @@ public class NetworkUtils {
                     InetAddress inetAddress = enumIpAddr.nextElement();
                     if (!inetAddress.isLoopbackAddress()
                             && (inetAddress instanceof Inet4Address)) {
-                        return inetAddress.getHostAddress().toString();
+                        return inetAddress.getHostAddress();
                     }
                 }
             }
@@ -350,6 +350,32 @@ public class NetworkUtils {
         public void onFail(String reason) {
         }
     }
+
+    private static Boolean isNetworkAvailable(Context context) {
+        ConnectivityManager connectivityManager
+                = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        return activeNetworkInfo != null && activeNetworkInfo.isConnectedOrConnecting();
+    }
+
+    public static Boolean isWifiConnected(Context context){
+        if(isNetworkAvailable(context)){
+            ConnectivityManager cm
+                    = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+            return (cm.getActiveNetworkInfo().getType() == ConnectivityManager.TYPE_WIFI);
+        }
+        return false;
+    }
+
+    public static Boolean isEthernetConnected(Context context){
+        if(isNetworkAvailable(context)){
+            ConnectivityManager cm
+                    = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+            return (cm.getActiveNetworkInfo().getType() == ConnectivityManager.TYPE_ETHERNET);
+        }
+        return false;
+    }
+
 //    public static void OpenWifiInterface(Context context, boolean open) {
 //        WifiManager wifiManager = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
 //        wifiManager.setWifiEnabled(open);

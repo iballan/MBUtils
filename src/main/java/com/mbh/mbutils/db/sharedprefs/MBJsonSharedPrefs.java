@@ -92,7 +92,7 @@ public class MBJsonSharedPrefs implements IPreferences {
     public void commit() {
         if(mJSONObject == null) return;
         try {
-            MBFileUtils.WriteToFile(mJSONObject.toString(), filePath);
+            MBFileUtils.WriteToFile(filePath, mJSONObject.toString());
         } catch (IOException e) {
             e.printStackTrace();
         }
