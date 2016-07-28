@@ -24,7 +24,7 @@ public class MBRxTimer {
     private static Subscription GetTimer(long initialDelay, long interval, TimeUnit timeUnit, final Runnable runnable, boolean isOnUi) {
         Scheduler scheduler = isOnUi?AndroidSchedulers.mainThread():Schedulers.computation();
         return Observable.interval(initialDelay, interval, timeUnit)
-                .subscribeOn(Schedulers.newThread())
+                .subscribeOn(Schedulers.io())
                 .observeOn(scheduler)
                 .subscribe(new Action1<Long>() {
                     @Override
