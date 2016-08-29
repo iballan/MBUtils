@@ -7,8 +7,10 @@ import com.mbh.mbutils.root.MBRootUtils;
  */
 public class MBThreadUtils {
     public static void TryToSleepFor(long millis){
-        try {Thread.sleep(millis);} catch (InterruptedException e)
-        {e.printStackTrace();}
+        if(millis>0){
+            try {Thread.sleep(millis);} catch (InterruptedException e)
+            {e.printStackTrace();}
+        }
     }
 
     /**
@@ -16,6 +18,7 @@ public class MBThreadUtils {
      * @param runnable: the runnable that will run in background
      */
     public static void DoOnBackground(Runnable runnable){
+        if(runnable==null) return;
         new Thread(runnable).start();
     }
 

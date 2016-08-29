@@ -96,13 +96,15 @@ public class MBFileUtils {
         }
     }
 
-    public static void ForceWriteBytesToFile(String path, byte[] content) {
+    public static boolean ForceWriteBytesToFile(String path, byte[] content) {
         try{
             File file = new File(path);
             Files.touch(file);
             Files.write(content, file);
+            return true;
         }catch (Exception e){
             e.printStackTrace();
+            return false;
         }
     }
 
@@ -131,6 +133,7 @@ public class MBFileUtils {
             return false;
         try {
             File file = new File(fullFilePath);
+
             if(file.isFile() && file.delete())
                 return true;
         }catch (Exception e){
@@ -150,5 +153,33 @@ public class MBFileUtils {
             e.printStackTrace();
         }
         return false;
+    }
+
+    public static void ForceDeleteFolder(String path) {
+        try {
+            File file = new File(path);
+
+            if (file.exists()) {
+                String deleteCmd = "rm -r " + path;
+                Runtime runtime = Runtime.getRuntime();
+                runtime.exec(deleteCmd);
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    public static void ForceDeleteFile(String path) {
+        try {
+            File file = new File(path);
+
+            if (file.exists()) {
+                String deleteCmd = "rm " + path;
+                Runtime runtime = Runtime.getRuntime();
+                runtime.exec(deleteCmd);
+            }
+        }catch (Exception exc){
+            exc.printStackTrace();
+        }
     }
 }

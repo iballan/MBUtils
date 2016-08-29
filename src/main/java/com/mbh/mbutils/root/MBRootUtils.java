@@ -1,5 +1,7 @@
 package com.mbh.mbutils.root;
 
+import com.mbh.mbutils.db.MBFileUtils;
+
 import java.io.DataOutputStream;
 import java.io.IOException;
 
@@ -25,4 +27,23 @@ public class MBRootUtils {
         }
     }
 
+
+    public static boolean installApkFromPath(String absolutePath) {
+        if (absolutePath != null && !absolutePath.isEmpty() &&
+                MBFileUtils.FileExists(absolutePath)) {
+            try {
+                final String command = "pm install -r " + absolutePath;
+                Process proc = Runtime.getRuntime().exec(new String[]{
+                        "su",
+                        "-c",
+                        command});
+                proc.waitFor();
+                return true;
+            } catch (Exception e) {
+                e.printStackTrace();
+                return false;
+            }
+        }
+        return false;
+    }
 }
