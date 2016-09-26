@@ -45,7 +45,9 @@ public class MBFileUtils {
         File file = new File(path);
         try {
             if (!file.exists()) {
-                String parentFolderPath = path.substring(0, path.lastIndexOf("/"));
+                int indexOfLasSlash = path.lastIndexOf("/");
+                if(indexOfLasSlash==-1) return null;
+                String parentFolderPath = path.substring(0, indexOfLasSlash);
                 File parentFolder = new File(parentFolderPath);
                 if (!parentFolder.exists()) {
                     parentFolder.mkdir();
@@ -76,11 +78,19 @@ public class MBFileUtils {
     }
 
     public static String ReadFile(String path) throws IOException {
-        return Files.toString(new File(path), Charsets.UTF_8);
+        try{
+            return Files.toString(new File(path), Charsets.UTF_8);
+        }catch (Exception e){
+            return "";
+        }
     }
 
     public static byte[] ReadFileBytes(String path) throws IOException{
-        return Files.toByteArray(new File(path));
+        try {
+            return Files.toByteArray(new File(path));
+        }catch (Exception e){
+            return null;
+        }
     }
 
     public static void WriteToFile( String path, String content) throws IOException {
