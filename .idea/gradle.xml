@@ -10,7 +10,6 @@
           <set>
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/MBUtils" />
-            <option value="$PROJECT_DIR$/Sample" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />
