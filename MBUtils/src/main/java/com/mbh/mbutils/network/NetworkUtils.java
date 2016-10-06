@@ -79,6 +79,7 @@ public class NetworkUtils {
         return result;
     }
 
+    @SuppressWarnings("deprecation")
     public static boolean IsWiFiConnected(Context context) {
         ConnectivityManager connManager = (ConnectivityManager) context.getSystemService(Context
                 .CONNECTIVITY_SERVICE);
@@ -87,6 +88,7 @@ public class NetworkUtils {
         return mWifi.isConnected();
     }
 
+    @SuppressWarnings("deprecation")
     public static boolean IsETHConnected(Context context) {
         try {
             if (context == null)
