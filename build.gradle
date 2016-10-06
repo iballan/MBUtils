@@ -1,30 +1,23 @@
-apply plugin: 'com.android.library'
+// Top-level build file where you can add configuration options common to all sub-projects/modules.
 
-android {
-    compileSdkVersion 24
-    buildToolsVersion "24.0.2"
-    defaultConfig {
-        minSdkVersion 9
-        targetSdkVersion 24
-        versionCode 1
-        versionName "1.0"
+buildscript {
+    repositories {
+        jcenter()
     }
-    buildTypes {
-        release {
-            minifyEnabled false
-            //consumerProguardFiles 'proguard-android.txt'
-        }
-    }
-    productFlavors {
+    dependencies {
+        classpath 'com.android.tools.build:gradle:2.2.0'
+
+        // NOTE: Do not place your application dependencies here; they belong
+        // in the individual module build.gradle files
     }
 }
 
-dependencies {
-    compile fileTree(include: ['*.jar'], dir: 'libs')
-    compile 'com.android.support:appcompat-v7:24.2.1'
-    compile 'com.squareup.okhttp3:okhttp:3.4.1'
-    compile 'com.google.guava:guava:19.0'
-    // rx java
-    compile 'io.reactivex:rxandroid:1.2.1'
-    compile 'io.reactivex:rxjava:1.1.9'
+allprojects {
+    repositories {
+        jcenter()
+    }
+}
+
+task clean(type: Delete) {
+    delete rootProject.buildDir
 }
