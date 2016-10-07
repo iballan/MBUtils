@@ -82,6 +82,11 @@ public class MBServer {
                 try {
                     serverSocket = new ServerSocket(serverPort);
                     serverSocket.setReuseAddress(true);
+
+                    // TODO: TRY THE SERVER SOCKET BIND()
+//                    serverSocket = new ServerSocket();
+//                    serverSocket.setReuseAddress(true);
+//                    serverSocket.bind(new InetSocketAddress(serverPort));
 //                    logger.debug("ServerSocker initialized--InetAddress=" + serverSocket.getInetAddress());
 
                     while (isRunning.get()) {
