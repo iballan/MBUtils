@@ -2,11 +2,21 @@ package com.mbh.mbutils.ui;
 
 import android.os.Build;
 
+import com.mbh.mbutils.thread.MBThreadUtils;
+
 /**
  * Created By MBH on 2016-06-09.
  */
 public class MBTaskbarUtils {
 
+    public static void removeTaskBarAsync() {
+        MBThreadUtils.DoOnBackground(new Runnable() {
+            @Override
+            public void run() {
+                removeTaskBar();
+            }
+        });
+    }
     public static boolean removeTaskBar() {
         try {
             // REQUIRES ROOT
@@ -58,5 +68,14 @@ public class MBTaskbarUtils {
         } catch (Exception ex) {
             return false;
         }
+    }
+
+    public static void addTaskBarAsync(){
+        MBThreadUtils.DoOnBackground(new Runnable() {
+            @Override
+            public void run() {
+                addTaskBar();
+            }
+        });
     }
 }
