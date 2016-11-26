@@ -35,12 +35,12 @@ public class MBRootUtils {
         if (absolutePath != null && !absolutePath.isEmpty() &&
                 MBFileUtils.FileExists(absolutePath)) {
             try {
-                final String command = "pm install -r " + absolutePath;
-                Process proc = Runtime.getRuntime().exec(new String[]{
-                        "su",
-                        "-c",
-                        command});
-                proc.waitFor();
+
+                Runtime.getRuntime().exec(
+                        new String[]{
+                                "su",
+                                "-c",
+                                "pm install -r " + absolutePath});
                 return true;
             } catch (Exception e) {
                 e.printStackTrace();

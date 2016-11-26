@@ -11,7 +11,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 
 /**
- * Created By MBH on 2016-06-21.
+ * Created By MBH on 2016-06-21
  */
 public class MBFileUtils {
 
@@ -46,7 +46,7 @@ public class MBFileUtils {
         try {
             if (!file.exists()) {
                 int indexOfLasSlash = path.lastIndexOf("/");
-                if(indexOfLasSlash==-1) return null;
+                if (indexOfLasSlash == -1) return null;
                 String parentFolderPath = path.substring(0, indexOfLasSlash);
                 File parentFolder = new File(parentFolderPath);
                 if (!parentFolder.exists()) {
@@ -78,41 +78,41 @@ public class MBFileUtils {
     }
 
     public static String ReadFile(String path) throws IOException {
-        try{
+        try {
             return Files.toString(new File(path), Charsets.UTF_8);
-        }catch (Exception e){
+        } catch (Exception e) {
             return "";
         }
     }
 
-    public static byte[] ReadFileBytes(String path) throws IOException{
+    public static byte[] ReadFileBytes(String path) throws IOException {
         try {
             return Files.toByteArray(new File(path));
-        }catch (Exception e){
+        } catch (Exception e) {
             return null;
         }
     }
 
-    public static void WriteToFile( String path, String content) throws IOException {
+    public static void WriteToFile(String path, String content) throws IOException {
         Files.write(content, new File(path), Charsets.UTF_8);
     }
 
-    public static void ForceWriteToFile(String path, String content){
-        try{
+    public static void ForceWriteToFile(String path, String content) {
+        try {
             Files.touch(new File(path));
             WriteToFile(path, content);
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
     public static boolean ForceWriteBytesToFile(String path, byte[] content) {
-        try{
+        try {
             File file = new File(path);
             Files.touch(file);
             Files.write(content, file);
             return true;
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             return false;
         }
@@ -120,12 +120,7 @@ public class MBFileUtils {
 
     public static boolean CreateFolderIfNotExists(String path) {
         File file = new File(path);
-        if(!file.exists()){
-            return file.mkdirs();
-        }else {
-            return true;
-        }
-//        return file.exists() || file.mkdir();
+        return file.exists() || file.mkdirs();
     }
 
     public static File SaveBitmapToFile(Bitmap bm, String dir, String name) {
@@ -136,35 +131,34 @@ public class MBFileUtils {
             file = new File(dir, name + ".jpg");
             file.createNewFile();
             Files.write(bytes.toByteArray(), file);
-//            OutputStream outputStream = new FileOutputStream(file).write(bytes.toByteArray());
         } catch (IOException e) {
             e.printStackTrace();
         }
         return file;
     }
 
-    public static boolean DeleteFile(String fullFilePath){
-        if(fullFilePath == null || fullFilePath.isEmpty())
+    public static boolean DeleteFile(String fullFilePath) {
+        if (fullFilePath == null || fullFilePath.isEmpty())
             return false;
         try {
             File file = new File(fullFilePath);
 
-            if(file.isFile() && file.delete())
+            if (file.isFile() && file.delete())
                 return true;
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return false;
     }
 
-    public static boolean DeleteFolder(String folderFullPath){
-        if(folderFullPath == null || folderFullPath.isEmpty())
+    public static boolean DeleteFolder(String folderFullPath) {
+        if (folderFullPath == null || folderFullPath.isEmpty())
             return false;
         try {
             File file = new File(folderFullPath);
-            if(file.isDirectory() && file.delete())
+            if (file.isDirectory() && file.delete())
                 return true;
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return false;
@@ -179,7 +173,7 @@ public class MBFileUtils {
                 Runtime runtime = Runtime.getRuntime();
                 runtime.exec(deleteCmd);
             }
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -193,7 +187,7 @@ public class MBFileUtils {
                 Runtime runtime = Runtime.getRuntime();
                 runtime.exec(deleteCmd);
             }
-        }catch (Exception exc){
+        } catch (Exception exc) {
             exc.printStackTrace();
         }
     }
