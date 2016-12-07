@@ -1,6 +1,7 @@
 package com.mbh.mbutils.db;
 
 import android.graphics.Bitmap;
+import android.os.Environment;
 
 import com.google.common.base.Charsets;
 import com.google.common.io.Files;
@@ -9,6 +10,14 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Locale;
+import java.util.Queue;
 
 /**
  * Created By MBH on 2016-06-21
@@ -190,5 +199,36 @@ public class MBFileUtils {
         } catch (Exception exc) {
             exc.printStackTrace();
         }
+    }
+
+    public static List<File> ListFiles(File rootDir, String[] types){
+        List<File> inFiles = new ArrayList<>();
+        Queue<File> files = new LinkedList<>();
+        files.addAll(Arrays.asList(rootDir.listFiles()));
+        while (!files.isEmpty()) {
+            File file = files.remove();
+            if (file.isDirectory()) {
+                files.addAll(Arrays.asList(file.listFiles()));
+            } else {
+                if(types!=null){
+                    for (String type :
+                            types) {
+                        if (file.getName().endsWith(type)) {
+                            inFiles.add(file);
+                        }
+                    }
+                }
+
+            }
+        }
+        return inFiles;
+    }
+
+    public static String getFileExtension(File file) {
+        return file == null || !file.isFile()?"":Files.getFileExtension(file.getName());
+    }
+
+    public static String getFileExtension(String fullPath) {
+        return fullPath == null || !fullPath.isEmpty()?"":Files.getFileExtension(fullPath);
     }
 }
